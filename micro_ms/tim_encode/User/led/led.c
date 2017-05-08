@@ -1,6 +1,6 @@
 #include "led.h"
 
-void Led_Init(void)
+void LED_Init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	

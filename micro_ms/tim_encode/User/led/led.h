@@ -47,6 +47,6 @@
 #define led_adc_on    									led_adc_port->BSRRL = led_adc_pin
 #define led_adc_off  			   						led_adc_port->BSRRH = led_adc_pin
 
-void Led_Init(void);
+void LED_Init(void);
 	
 #endif
