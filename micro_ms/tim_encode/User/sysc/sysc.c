@@ -1,16 +1,16 @@
 #include "sysc.h"
 #include "uart.h"
+#include "encode.h"
 
 uint16_t loop_cnt=0, loop_cnt_cout=0;
-uint32_t rc_time=0,  rc_time_dt=0;
 
 void SYS_Time(void)
 {
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
   sys_time_rcc_cmd(sys_time_clk, ENABLE); 
 
-  TIM_TimeBaseStructure.TIM_Period = 0XFFFFFFFF;       
-  TIM_TimeBaseStructure.TIM_Prescaler = 84 - 1;	
+  TIM_TimeBaseStructure.TIM_Period = sys_time_period;       
+  TIM_TimeBaseStructure.TIM_Prescaler = sys_time_Prescaler;	
   TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
   TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseInit(sys_time_num, &TIM_TimeBaseStructure);
@@ -24,8 +24,8 @@ void RC_Time(void)
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
   rc_time_rcc_cmd(rc_time_clk, ENABLE); 
 
-  TIM_TimeBaseStructure.TIM_Period = 999;       
-  TIM_TimeBaseStructure.TIM_Prescaler = 84 - 1;	
+  TIM_TimeBaseStructure.TIM_Period = rc_time_period;       
+  TIM_TimeBaseStructure.TIM_Prescaler = rc_time_Prescaler;	
   TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
   TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseInit(rc_time_num, &TIM_TimeBaseStructure);
@@ -52,19 +52,7 @@ void RC_TIME_IRQnHandler(void)
 	if (TIM_GetITStatus(rc_time_num, TIM_IT_Update) != RESET)
   {	 
 	  TIM_ClearITPendingBit(rc_time_num, TIM_FLAG_Update);
-		
-
-/*************ºÏ≤‚1ms ±º‰º‰∏Ù≤‚ ‘*********************/				
-//		rc_time_dt = Test_Dt(&rc_time);		
-//		printf("RC_Dt=%d  \n",rc_time_dt);
-		
-/*************ºÏ≤‚50ms ±º‰º‰∏Ù≤‚ ‘*********************/			
-//		if(loop_cnt == 0)
-//		{
-//			loop_cnt = 0;
-//			loop_cnt_cout ++;	
-//		}
-//	  loop_cnt = 1;		
+		Encode_Velocity_Get();
   }
 }
 

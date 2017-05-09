@@ -4,7 +4,10 @@
 #include "stm32f4xx.h"
 #include "uart.h"
 
-extern int32_t encode_1_cout, encode_2_cout;
+extern int32_t encode_1_velocity, encode_2_velocity;
+extern int32_t encode_1_pulse_total, encode_2_pulse_total;
+extern int32_t encode_1_pulse_new, encode_2_pulse_new;
+extern int32_t encode_1_pulse_old, encode_2_pulse_old;
 
 #define encode_gpio_rcc_cmd							RCC_AHB1PeriphClockCmd
 #define encode_clk_rcc_cmd							RCC_APB1PeriphClockCmd
@@ -53,6 +56,7 @@ extern int32_t encode_1_cout, encode_2_cout;
 static void Encode_GPIO_Init(void);
 static void Encode_NVIC_Init(void);
 void Encode_Init(void);
+void Encode_Velocity_Get(void);
 
 
 #endif

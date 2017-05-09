@@ -6,6 +6,7 @@
 extern uint16_t loop_cnt;
 extern uint16_t loop_cnt_cout;
 
+
 #define sys_time_rcc_cmd	                    RCC_APB1PeriphClockCmd
 #define sys_time_clk													RCC_APB1Periph_TIM2
 #define sys_time_num          					    	TIM2
@@ -14,8 +15,13 @@ extern uint16_t loop_cnt_cout;
 #define rc_time_clk													  RCC_APB1Periph_TIM12
 #define rc_time_num          					    	  TIM12
 #define rc_time_irqn													TIM8_BRK_TIM12_IRQn
-
 #define RC_TIME_IRQnHandler										TIM8_BRK_TIM12_IRQHandler
+
+#define sys_time_period												0XFFFFFFFF
+#define sys_time_Prescaler										84 - 1
+
+#define rc_time_period												499
+#define rc_time_Prescaler										  84 - 1
 
 #define waite                                 0
 #define usart_command                         1

@@ -1,6 +1,10 @@
 #include "encode.h"
 
-int32_t encode_1_cout=0, encode_2_cout=0;
+int32_t encode_1_velocity=0, encode_2_velocity=0;
+int32_t encode_1_pulse_total=0, encode_2_pulse_total=0;
+int32_t encode_1_pulse_new=0, encode_2_pulse_new=0;
+int32_t encode_1_pulse_old=0, encode_2_pulse_old=0;
+
 
 static void Encode_GPIO_Init(void)
 {
@@ -58,8 +62,8 @@ static void Encode_Mode_Init(void)
 	
 	TIM_ClearFlag(encode_1_num, TIM_FLAG_Update);
 	TIM_ClearFlag(encode_2_num, TIM_FLAG_Update);
-	encode_1_num->CNT = 0;
-	encode_2_num->CNT = 0;
+	TIM_SetCounter(encode_1_num, 0);
+	TIM_SetCounter(encode_2_num, 0);
 	
 	TIM_Cmd(encode_1_num, ENABLE);
 	TIM_Cmd(encode_2_num, ENABLE);
@@ -69,5 +73,25 @@ void Encode_Init(void)
 {
 	Encode_GPIO_Init();
 	Encode_Mode_Init();
+}
+void Encode_Velocity_Get(void)
+{
+	encode_1_pulse_new = (int32_t)TIM_GetCounter(encode_1_num);
+	encode_1_velocity = encode_1_pulse_new - encode_1_pulse_old;
+	encode_1_pulse_old = encode_1_pulse_new;
+	if(encode_1_velocity > 32767)
+		encode_1_velocity -= 65536;
+	else if(encode_1_velocity < -32767)
+		encode_1_velocity += 65536;
+	encode_1_pulse_total += encode_1_velocity;
+	
+	encode_2_pulse_new = (int32_t)TIM_GetCounter(encode_2_num);
+	encode_2_velocity = encode_2_pulse_new - encode_2_pulse_old;
+	encode_2_pulse_old = encode_2_pulse_new;
+	if(encode_2_velocity > 32767)
+		encode_2_velocity -= 65536;
+	else if(encode_2_velocity < -32767)
+		encode_2_velocity += 65536;
+	encode_2_pulse_total += encode_2_velocity;
 }
 
