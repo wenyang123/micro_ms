@@ -25,8 +25,7 @@ int main(void)
 	{ 
 		delay_ms(5);
 		Motor_Pwm_Flash(400,0,0,0);
-	  Buzzer_Soud(5);
-		Buzzer_Stop();
+	  //Buzzer_Soud(5);
 		printf("encode1=%d    ",encode_1_pulse_total/4);
 		printf("encode1=%d  \n",encode_2_pulse_total/4);
 	}

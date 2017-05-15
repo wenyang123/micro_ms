@@ -41,6 +41,5 @@ static void Buzzer_GPIO_Config(void);
 static void Buzzer_MODE_Config(void);
 void Buzzer_Init(void);
 void Buzzer_Soud(uint32_t time);
-void Buzzer_Stop(void);
 
 #endif

@@ -53,11 +53,9 @@ void Buzzer_Soud(uint32_t time)
 {		
      buzzer_num->buzzer_ccr = buzzer_pwm_soud;
 		 delay_ms(time);
+	   buzzer_num->buzzer_ccr = buzzer_pwm_stop;
 }
 
-void Buzzer_Stop(void)
-{		
-     buzzer_num->buzzer_ccr = buzzer_pwm_stop;
-}
+
 
 
