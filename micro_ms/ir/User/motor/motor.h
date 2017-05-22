@@ -44,7 +44,7 @@
 #define motor_period													999
 #define motor_prescaler												0
 
-#define motor_pwm_max      									  200
+#define motor_pwm_max      									  400
 
 
 
@@ -52,6 +52,6 @@
 static void Motor_GPIO_Config(void);
 static void Motor_MODE_Config(void);
 void Motor_Init(void);
-void Motor_Pwm_Flash(int16_t motor_1_pwm,int16_t motor_2_pwm,int16_t motor_3_pwm,int16_t motor_4_pwm);
+void Motor_Pwm_Flash(int16_t MOTO2_PWM,int16_t MOTO1_PWM,int16_t MOTO3_PWM,int16_t MOTO4_PWM);
 
 #endif

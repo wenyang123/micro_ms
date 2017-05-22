@@ -2,9 +2,6 @@
 #define	__SYSC_H
 
 #include "stm32f4xx.h"
-#include "uart.h"
-#include "encode.h"
-#include "ir.h"
 
 extern uint16_t loop_cnt;
 extern uint16_t loop_cnt_cout;

@@ -30,7 +30,7 @@ void LED_Init(void)
   GPIO_InitStructure.GPIO_Pin = led_adc_pin;
 	GPIO_Init(led_adc_port, &GPIO_InitStructure);
 	
-	//led_l_off;led_r_off;led_f_off;led_s1_off;led_s2_off;led_adc_off;
-	led_l_on;led_r_on;led_f_on;led_s1_on;led_s2_on;led_adc_on;
+	led_l_off;led_r_off;led_f_off;led_s1_off;led_s2_off;led_adc_off;
+//led_l_on;led_r_on;led_f_on;led_s1_on;led_s2_on;led_adc_on;
 }
 

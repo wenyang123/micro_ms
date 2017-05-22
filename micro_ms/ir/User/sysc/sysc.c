@@ -54,6 +54,16 @@ void RC_TIME_IRQnHandler(void)
   {	 
 	  TIM_ClearITPendingBit(rc_time_num, TIM_FLAG_Update);
 		Encode_Velocity_Get();
+		IR_ADC_GetData();
+		IR_ADC_ADV();
+		
+		ir_adc_1a_value_new = ir_adc_1a_value/16;
+		ir_adc_1b_value_new = ir_adc_1b_value/16;
+		ir_adc_1c_value_new = ir_adc_1c_value/16;
+		
+		ir_adc_2a_value_new = ir_adc_2a_value/16;
+		ir_adc_2b_value_new = ir_adc_2b_value/16;
+		ir_adc_2c_value_new = ir_adc_2c_value/16;
   }
 }
 

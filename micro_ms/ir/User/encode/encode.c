@@ -94,3 +94,11 @@ void Encode_Velocity_Get(void)
 	encode_2_pulse_total += encode_2_velocity;
 }
 
+void Ready_Start(void)
+{
+	while(encode_1_pulse_total/4 < 500);
+	led_s1_on;
+	while(encode_2_pulse_total/4 < 500);
+	led_s2_on;
+}
+

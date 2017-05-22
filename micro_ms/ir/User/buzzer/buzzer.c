@@ -36,6 +36,15 @@ static void Buzzer_MODE_Config(void)
   TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;	
   TIM_OCInitStructure.TIM_Pulse = buzzer_pwm_config;
 	
+  IR_Out_1_OC_Init(ir_out_num, &TIM_OCInitStructure);	
+	IR_Out_1_OC_Preload_Config(ir_out_num, TIM_OCPreload_Enable);
+	
+	IR_Out_2_OC_Init(ir_out_num, &TIM_OCInitStructure);	
+	IR_Out_2_OC_Preload_Config(ir_out_num, TIM_OCPreload_Enable);
+	
+	IR_Out_3_OC_Init(ir_out_num, &TIM_OCInitStructure);	
+	IR_Out_3_OC_Preload_Config(ir_out_num, TIM_OCPreload_Enable);
+	
 	Buzzer_OC_Init(buzzer_num, &TIM_OCInitStructure);	
 	Buzzer_OC_Preload_Config(buzzer_num, TIM_OCPreload_Enable);
 
@@ -46,6 +55,7 @@ static void Buzzer_MODE_Config(void)
 void Buzzer_Init(void)
 {
 	Buzzer_GPIO_Config();
+	IR_Out_GPIO_Config();
 	Buzzer_MODE_Config();
 }
 

@@ -79,7 +79,7 @@ void Motor_Init(void)
 }
 
 //--------------------------更新电机--------------------------------//
-void Motor_Pwm_Flash(int16_t MOTO1_PWM,int16_t MOTO2_PWM,int16_t MOTO3_PWM,int16_t MOTO4_PWM)
+void Motor_Pwm_Flash(int16_t MOTO3_PWM,int16_t MOTO4_PWM,int16_t MOTO2_PWM,int16_t MOTO1_PWM)
 {		
      if(MOTO1_PWM >= motor_pwm_max)	MOTO1_PWM = motor_pwm_max;
      if(MOTO2_PWM >= motor_pwm_max)	MOTO2_PWM = motor_pwm_max;

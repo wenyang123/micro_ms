@@ -3,6 +3,7 @@
 
 #include "stm32f4xx.h"
 #include "uart.h"
+#include "led.h"
 
 extern int32_t encode_1_velocity, encode_2_velocity;
 extern int32_t encode_1_pulse_total, encode_2_pulse_total;
@@ -57,6 +58,7 @@ static void Encode_GPIO_Init(void);
 static void Encode_NVIC_Init(void);
 void Encode_Init(void);
 void Encode_Velocity_Get(void);
+void Ready_Start(void);
 
 
 #endif
