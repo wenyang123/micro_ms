@@ -158,7 +158,7 @@ int main(int argc, char** argv)
 			if (map[j][map_y_num - 1 - i] == map_config_num)
 				printf("   ");
 			else
-				printf(" %2d", map[j][map_y_num - 1 - i]);
+				printf("%3d", map[j][map_y_num - 1 - i]);
 
 			if (wall[j][map_x_num -1 - i].v == true)
 				printf("|");
