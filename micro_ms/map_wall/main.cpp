@@ -8,21 +8,21 @@ int main(int argc, char** argv)
 	/*************************初始化************************/
 
 	//对格子权值初始化
-	unsigned int map[18][18] = { 0 };
-	for (int i=0; i < 18; i++)
+	unsigned int map[map_x_num][map_y_num] = { 0 };
+	for (int i=0; i < map_x_num; i++)
 	{
-		for (int j=0; j < 18; j++)
+		for (int j=0; j < map_y_num; j++)
 		{
 			map[i][j] = map_config_num;
 		}
 	}
 
 	//对迷宫墙壁初始化
-	Wall wall[18][18]; 
-	for (int i = 0; i < 18; i++)
+	Wall wall[map_x_num][map_y_num];
+	for (int i = 0; i < map_x_num; i++)
 	{
-		wall[i][17].h = true;
-		wall[17][i].v = true;
+		wall[i][map_y_num-1].h = true;
+		wall[map_x_num-1][i].v = true;
 	}
 
 	//设立迷宫终点
@@ -41,33 +41,15 @@ int main(int argc, char** argv)
 	map_num_sum_index = 1;
 
 	//初始化迷宫挡板情况
-	//							   0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17
-	unsigned char map_wall[324] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,    //0
-								   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,	//1
-								   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,	//2
-								   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,	//3
-								   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,	//4
-								   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,	//5
-								   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,	//6
-								   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,	//7
-								   1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1,	//8
-								   1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1,	//9
-								   1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,	//10
-								   1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,	//11
-								   1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,	//12
-								   1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,	//13
-								   1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,	//14
-								   1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,	//15
-								   1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,	//16
-							       0, 1, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1		//17
-	};
+	//							   
+	unsigned char map_wall[map_x_num*map_y_num] = map_wall_init;
 
-	for (int i = 0; i < 18; i++)
+	for (int i = 0; i < map_x_num; i++)
 	{
-		for (int j = 0; j < 18; j++)
+		for (int j = 0; j < map_y_num; j++)
 		{
-			wall[i][j].h = ((map_wall[i + (17 - j) * 18] >> 1) & 0x01);
-			wall[i][j].v = (map_wall[i + (17 - j) * 18] & 0x01);
+			wall[i][j].h = ((map_wall[i + (map_y_num - 1 - j) * map_y_num] >> 1) & 0x01);
+			wall[i][j].v = (map_wall[i + (map_y_num - 1 - j) * map_y_num] & 0x01);
 		}
 	}
 
@@ -109,7 +91,7 @@ int main(int argc, char** argv)
 				}
 			}
 
-			if (map_floot_last[i].x < 17)
+			if (map_floot_last[i].x < (map_x_num-1))
 			{
 				if ((map[map_floot_last[i].x + 1][map_floot_last[i].y] == map_config_num) && (wall[map_floot_last[i].x][map_floot_last[i].y].v != true))
 				{
@@ -120,7 +102,7 @@ int main(int argc, char** argv)
 				}
 			}
 
-			if (map_floot_last[i].y < 17)
+			if (map_floot_last[i].y < (map_y_num-1))
 			{
 				if ((map[map_floot_last[i].x][map_floot_last[i].y + 1] == map_config_num) && (wall[map_floot_last[i].x][map_floot_last[i].y].h != true))
 				{
@@ -158,23 +140,37 @@ int main(int argc, char** argv)
 	}
 
 	/*************************显示部分************************/
-	printf("\n ");
-	for (int i=0; i < 18; i++)
+	for (int i=0; i < map_x_num; i++)
 	{ 
-		printf("\n\n          %2d   ", 17 - i);
-		for (int j=0; j < 18; j++)
+		printf("\n                ");
+		for (int j = 0; j < map_x_num; j++)
 		{
-			if(map[j][17 - i] == map_config_num)
-				printf("    ");
+			if (wall[j][map_x_num - 1 - i].h == true)
+				printf("___ ");
 			else
-				printf(" %2d ", map[j][17 - i]);
+				printf("    ");
+		}
+
+		printf("\n          %2d   |", map_x_num - 1 - i);
+
+		for (int j=0; j < map_y_num; j++)
+		{
+			if (map[j][map_y_num - 1 - i] == map_config_num)
+				printf("   ");
+			else
+				printf(" %2d", map[j][map_y_num - 1 - i]);
+
+			if (wall[j][map_x_num -1 - i].v == true)
+				printf("|");
+			else
+				printf(" ");
 		}
 
 	}
 
 	printf("\n ");
-	printf("\n\n               ");
-	for (int i = 0; i < 18; i++)
+	printf("\n\n                ");
+	for (int i = 0; i < map_x_num; i++)
 	{
 		printf(" %2d ", i);
 	}
