@@ -135,11 +135,126 @@ int main(int argc, char** argv)
 
 		map_num_last_index = map_num_new_index;
 		map_num_sum_index ++;
+	}
+	/*************************路径规划************************/
+	Map_Floot map_run_save[map_x_num*map_x_num];
+	Map_Floot map_run_local;
+	unsigned char map_run_local_num=0;
+
+	map_num_sum_index -= 1;
+	map_run_local.x = start_point_x;
+	map_run_local.y = start_point_y;
+	map_run_local_num = map_num_sum_index;
 
 
+	for (int i = 0; i < map_num_sum_index; i++)
+	{
+		unsigned char map_wall_run_dir[4] = {0};
+
+		if (map_run_local.y < end_point_y)
+		{
+			map_wall_run_dir[0] = 0;
+			if (map_run_local.x < end_point_x)
+			{
+				map_wall_run_dir[1] = 1;
+				map_wall_run_dir[2] = 2;
+				map_wall_run_dir[3] = 3;
+			}
+			else
+			{
+				map_wall_run_dir[1] = 3;
+				map_wall_run_dir[2] = 2;
+				map_wall_run_dir[3] = 1;
+			}
+		}
+		else
+		{
+			map_wall_run_dir[0] = 2;
+			if (map_run_local.x < end_point_x)
+			{
+				map_wall_run_dir[1] = 1;
+				map_wall_run_dir[2] = 0;
+				map_wall_run_dir[3] = 3;
+			}
+			else
+			{
+				map_wall_run_dir[1] = 3;
+				map_wall_run_dir[2] = 0;
+				map_wall_run_dir[3] = 1;
+			}
+		}
+
+		if (map_run_local.x == 0)
+			map_wall_run_dir[3] = 1;
+
+		if (map_run_local.x == (map_x_num - 1))
+			map_wall_run_dir[3] = 3;
+
+		if (map_run_local.y == 0)
+			map_wall_run_dir[2] = 0;
+
+		if (map_run_local.y == (map_y_num - 1))
+			map_wall_run_dir[2] = 2;
+
+		if (map_run_local.x == end_point_x && map_run_local.y == end_point_y)
+			break;
+
+	//	printf("%3d, %3d   ", map[map_run_local.x+1][map_run_local.y], map_run_local_num);
+	//	printf("%3d, %3d, %3d, %3d  ---", map_wall_run_dir[0], map_wall_run_dir[1], map_wall_run_dir[2], map_wall_run_dir[3]);
+		for (int i = 0; i < 4; i++)
+		{
+			bool map_wall_run_dir_choose=false;
+			switch (map_wall_run_dir[i])
+			{
+				case 0:	if (((map_run_local_num - map[map_run_local.x][map_run_local.y + 1] ) == 1) && (wall[map_run_local.x][map_run_local.y].h != true))
+				{
+					map_run_local.y += 1;
+					map_run_local_num -= 1;
+					map_wall_run_dir_choose = true;
+				}
+				break;
+
+				case 1:if (((map_run_local_num - map[map_run_local.x + 1][map_run_local.y]) == 1) && (wall[map_run_local.x][map_run_local.y].v != true))
+				{
+					map_run_local.x += 1;
+					map_run_local_num -= 1;
+					map_wall_run_dir_choose = true;
+				}
+				break;
+
+				case 2:if (((map_run_local_num - map[map_run_local.x][map_run_local.y - 1]) == 1) && (wall[map_run_local.x][map_run_local.y - 1].h != true))
+				{
+					map_run_local.y -= 1;
+					map_run_local_num -= 1;
+					map_wall_run_dir_choose = true;
+				}
+				break;
+
+				case 3:if (((map_run_local_num - map[map_run_local.x - 1][map_run_local.y]) == 1) && (wall[map_run_local.x - 1][map_run_local.y].v != true))
+				{
+					map_run_local.x -= 1;
+					map_run_local_num -= 1;
+					map_wall_run_dir_choose = true;
+				}
+				break;
+			}
+			if (map_wall_run_dir_choose == true)
+			{
+				map_run_save[map_num_sum_index - map_run_local_num - 1].x = map_run_local.x;
+				map_run_save[map_num_sum_index - map_run_local_num - 1].y = map_run_local.y;
+				break;
+			}
+		}
+		
 	}
 
+//	for (int i = 0; i < map_num_sum_index; i++)
+//	{
+//		printf("%3d, %3d  \n", map_run_save[i].x, map_run_save[i].y);
+//	}
+
 	/*************************显示部分************************/
+	unsigned char show_map_run_num=0;
 	for (int i=0; i < map_x_num; i++)
 	{ 
 		printf("\n                ");
@@ -155,10 +270,26 @@ int main(int argc, char** argv)
 
 		for (int j=0; j < map_y_num; j++)
 		{
+			int map_run_sure=0;
+#if switch_map_run
 			if (map[j][map_y_num - 1 - i] == map_config_num)
 				printf("   ");
 			else
 				printf("%3d", map[j][map_y_num - 1 - i]);
+#else
+			for (int k = 0; k < map_num_sum_index; k++)
+			{
+				if ((j == map_run_save[k].x) && ((map_y_num - 1 - i) == map_run_save[k].y))
+				{
+					printf("%3d", map[j][map_y_num - 1 - i]);
+					map_run_sure = 1;
+					break;
+				}
+			}
+			if(map_run_sure == 0)
+				printf("   ");
+#endif
+
 
 			if (wall[j][map_x_num -1 - i].v == true)
 				printf("|");

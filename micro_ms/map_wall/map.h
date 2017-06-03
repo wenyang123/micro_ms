@@ -20,7 +20,9 @@ struct Map_Floot
 #define map_x_num				16
 #define map_y_num				16
 
-#define map_config_num			350
+#define map_config_num			300
+
+#define switch_map_run			1
 
 								      
 #define map_wall_init			/*15*/{0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3,\
