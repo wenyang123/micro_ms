@@ -10,6 +10,7 @@ struct Map_Floot
 {
 	unsigned char	x;
 	unsigned char	y;
+	unsigned char   dir;
 };
 
 #define start_point_x			0
@@ -23,6 +24,7 @@ struct Map_Floot
 #define map_config_num			300
 
 #define switch_map_run			0
+#define switch_map_run_dir		1
 
 #define map_wall_init			/*15*/{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3,\
 								/*14*/ 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 1,\

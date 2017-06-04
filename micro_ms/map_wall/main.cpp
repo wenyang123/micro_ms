@@ -146,6 +146,12 @@ int main(int argc, char** argv)
 	map_run_local.y = start_point_y;
 	map_run_local_num = map_num_sum_index;
 
+	map_run_save[0].x = start_point_x;
+	map_run_save[0].y = start_point_y;
+	map_run_save[0].dir = 0;
+
+
+
 
 	for (int i = 0; i < map_num_sum_index; i++)
 	{
@@ -156,15 +162,15 @@ int main(int argc, char** argv)
 			map_wall_run_dir[0] = 0;
 			if (map_run_local.x < end_point_x)
 			{
-				map_wall_run_dir[1] = 1;
-				map_wall_run_dir[2] = 2;
-				map_wall_run_dir[3] = 3;
-			}
-			else
-			{
 				map_wall_run_dir[1] = 3;
 				map_wall_run_dir[2] = 2;
 				map_wall_run_dir[3] = 1;
+			}
+			else
+			{
+				map_wall_run_dir[1] = 1;
+				map_wall_run_dir[2] = 2;
+				map_wall_run_dir[3] = 3;
 			}
 		}
 		else
@@ -172,23 +178,23 @@ int main(int argc, char** argv)
 			map_wall_run_dir[0] = 2;
 			if (map_run_local.x < end_point_x)
 			{
-				map_wall_run_dir[1] = 1;
-				map_wall_run_dir[2] = 0;
-				map_wall_run_dir[3] = 3;
-			}
-			else
-			{
 				map_wall_run_dir[1] = 3;
 				map_wall_run_dir[2] = 0;
 				map_wall_run_dir[3] = 1;
 			}
+			else
+			{
+				map_wall_run_dir[1] = 1;
+				map_wall_run_dir[2] = 0;
+				map_wall_run_dir[3] = 3;
+			}
 		}
 
 		if (map_run_local.x == 0)
-			map_wall_run_dir[3] = 1;
+			map_wall_run_dir[3] = 3;
 
 		if (map_run_local.x == (map_x_num - 1))
-			map_wall_run_dir[3] = 3;
+			map_wall_run_dir[3] = 1;
 
 		if (map_run_local.y == 0)
 			map_wall_run_dir[2] = 0;
@@ -214,13 +220,13 @@ int main(int argc, char** argv)
 				}
 				break;
 
-				case 1:if (((map_run_local_num - map[map_run_local.x + 1][map_run_local.y]) == 1) && (wall[map_run_local.x][map_run_local.y].v != true))
+				case 1:if (((map_run_local_num - map[map_run_local.x - 1][map_run_local.y]) == 1) && (wall[map_run_local.x - 1][map_run_local.y].v != true))
 				{
-					map_run_local.x += 1;
+					map_run_local.x -= 1;
 					map_run_local_num -= 1;
 					map_wall_run_dir_choose = true;
 				}
-				break;
+				 break;
 
 				case 2:if (((map_run_local_num - map[map_run_local.x][map_run_local.y - 1]) == 1) && (wall[map_run_local.x][map_run_local.y - 1].h != true))
 				{
@@ -230,18 +236,21 @@ int main(int argc, char** argv)
 				}
 				break;
 
-				case 3:if (((map_run_local_num - map[map_run_local.x - 1][map_run_local.y]) == 1) && (wall[map_run_local.x - 1][map_run_local.y].v != true))
+				case 3:if (((map_run_local_num - map[map_run_local.x + 1][map_run_local.y]) == 1) && (wall[map_run_local.x][map_run_local.y].v != true))
 				{
-					map_run_local.x -= 1;
+					map_run_local.x += 1;
 					map_run_local_num -= 1;
 					map_wall_run_dir_choose = true;
 				}
 				break;
+
+				
 			}
 			if (map_wall_run_dir_choose == true)
 			{
-				map_run_save[map_num_sum_index - map_run_local_num - 1].x = map_run_local.x;
-				map_run_save[map_num_sum_index - map_run_local_num - 1].y = map_run_local.y;
+				map_run_save[map_num_sum_index - map_run_local_num ].x = map_run_local.x;
+				map_run_save[map_num_sum_index - map_run_local_num ].y = map_run_local.y;
+				map_run_save[map_num_sum_index - map_run_local_num ].dir = map_wall_run_dir[i];
 				break;
 			}
 		}
@@ -279,9 +288,15 @@ int main(int argc, char** argv)
 #else
 			for (int k = 0; k < map_num_sum_index; k++)
 			{
-				if ((j == map_run_save[k].x) && ((map_y_num - 1 - i) == map_run_save[k].y))
+				if ((j == map_run_save[k].x) && ((map_y_num - 1 - i) == map_run_save[k].y) )
 				{
+#if	switch_map_run_dir
+					unsigned char map_run_local_dir = 0;
+					map_run_local_dir = ((map_run_save[k+1].dir + 4) - map_run_save[k].dir)%4;
+					printf("%3d", map_run_local_dir);
+#else 
 					printf("%3d", map[j][map_y_num - 1 - i]);
+#endif
 					map_run_sure = 1;
 					break;
 				}
