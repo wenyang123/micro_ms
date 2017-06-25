@@ -10,6 +10,10 @@
 extern uint16_t loop_cnt;
 extern uint16_t loop_cnt_cout;
 extern float Pitch,Roll,Yaw;
+extern u32 mode_dt;
+
+extern u16 ir_adc_1a_value_sysc_get;
+extern u16 ir_adc_2a_value_sysc_get;
 
 
 #define sys_time_rcc_cmd	                    RCC_APB1PeriphClockCmd

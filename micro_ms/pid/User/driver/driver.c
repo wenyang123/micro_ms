@@ -34,7 +34,7 @@ void Modo_DataUp(void)
 	PID_Angle_UpData(mpu9250.yaw, 0, dt);
 	PID_Rage_DataUp(mpu9250.gyroData[2], YawRateDesired, dt);
 	
-	if(Thro + Yaw > 0)
+	if(Thro - Yaw > 0)
 	{
 		Motor[0] = (int16_t)(Thro - Yaw );   
 		Motor[1] = 0;   
@@ -42,7 +42,7 @@ void Modo_DataUp(void)
 	else
 	{
 		Motor[0] = 0 ;
-		Motor[1] = (int16_t)(Thro - Yaw ); 
+		Motor[1] = (int16_t)(Yaw - Thro ); 
 	}
 		
 	if(Thro + Yaw > 0)
@@ -53,7 +53,7 @@ void Modo_DataUp(void)
 	else
 	{
 		Motor[2] = 0 ;
-		Motor[3] = (int16_t)(Thro + Yaw ); 
+		Motor[3] = -(int16_t)(Thro + Yaw ); 
 	} 
 	
 	Motor_Pwm_Flash(Motor[0],Motor[1],Motor[2],Motor[3]);  

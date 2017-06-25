@@ -390,7 +390,7 @@ void MPU9250_Mode_DataUp(void)
 	MPU9250_Mode_Read_Gyro(mpu9250.gyroADC);
 	for(i=0; i<3; i++)
 	{
-	  if(abs(mpu9250.gyroADC[i]) == 1 || abs(mpu9250.gyroADC[i]) == 2 )
+	  if(abs(mpu9250.gyroADC[i]) <= 6)
 				mpu9250.gyroGet[i] = 0;
 		else
 			mpu9250.gyroGet[i] = (float)mpu9250.gyroADC[i] / mpu9250.x_gyro;	

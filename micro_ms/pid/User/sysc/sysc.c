@@ -47,6 +47,9 @@ static void RC_NVIC_Configuration(void)
 
 u32 dt_flag=0;
 u32 dt_t=0;
+u32 mode_dt=0;
+u16 ir_adc_1a_value_sysc_get=0;
+u16 ir_adc_2a_value_sysc_get=0;
 
 void RC_TIME_IRQnHandler(void)
 {
@@ -55,6 +58,22 @@ void RC_TIME_IRQnHandler(void)
 	  TIM_ClearITPendingBit(rc_time_num, TIM_FLAG_Update);
 		Encode_Velocity_Get();
 		IR_ADC_Dataup();
+		mode_dt++;
+			if(mode_dt >= 10)
+		{
+			if(mode_dt == 10)
+			{
+				ir_adc_1a_value_sysc_get = ir_adc_1a_value_new;
+				ir_adc_2a_value_sysc_get = ir_adc_2a_value_new;
+			}
+			ir_1_off;
+			if(mode_dt > 50)
+			{
+				mode_dt = 0;
+			}
+		}
+		else
+			ir_1_on;
 		//MPU9250_Mode_DataUp();
 
   }
