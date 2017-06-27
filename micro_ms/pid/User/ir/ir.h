@@ -107,8 +107,16 @@
 
 #define ir_out_pwm												90
 
-#define ir_start_value										2000
-#define ir_start_value_back								300   //250
+#define ir_start_value										3000
+#define ir_start_value_back								250   //250
+
+#define ir_value_lr												250   //250
+
+#define ir_a_start												0
+#define ir_b_start												2
+#define ir_c_start												1
+
+
 
 extern __IO u32 ir_adc_1a_value, ir_adc_1b_value, ir_adc_1c_value;
 extern __IO u32 ir_adc_2a_value, ir_adc_2b_value, ir_adc_2c_value;

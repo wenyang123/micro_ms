@@ -224,7 +224,7 @@ void IR_OUT_Mode(void)
 void IR_ADC_Dataup(void)
 {
 		IR_ADC_GetData();
-		IR_ADC_ADV();
+	//	IR_ADC_ADV();
 	
 	  ir_adc_1a_value_new = ir_adc_1a_value;
 		ir_adc_1b_value_new = ir_adc_1b_value;

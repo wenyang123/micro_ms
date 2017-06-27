@@ -92,6 +92,7 @@ void Encode_Velocity_Get(void)
 	else if(encode_2_velocity < -32767)
 		encode_2_velocity += 65536;
 	encode_2_pulse_total += encode_2_velocity;
+	
 }
 
 void Ready_Start(void)

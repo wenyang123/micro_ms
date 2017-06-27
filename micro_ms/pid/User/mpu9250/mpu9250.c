@@ -474,6 +474,7 @@ float imu_yaw=0.0f;
 
 void IMU_DataUp(void)
 {
+	MPU9250_Mode_DataUp();
 	imu_time_new = Test_Dt(&imu_time_flag);
 	imu_dt = (float)imu_time_new/1000000.0f;
 	imu_yaw += mpu9250.gyroData[2] * imu_dt;
