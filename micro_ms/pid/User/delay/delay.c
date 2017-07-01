@@ -11,5 +11,5 @@ void delay_us(u32 x)
 {
 	u32 i, j;
 	for(i=0; i<x; i++)
-		for(j=0; j<50; j++);
+		for(j=0; j<3360; j++);
 }

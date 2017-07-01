@@ -41,12 +41,12 @@
 ..\..\output\mpu9250.o: ..\..\User\sysc\sysc.h
 ..\..\output\mpu9250.o: ..\..\User\encode\encode.h
 ..\..\output\mpu9250.o: ..\..\User\led\led.h
-..\..\output\mpu9250.o: ..\..\User\ir\ir.h
-..\..\output\mpu9250.o: ..\..\User\mpu9250\mpu9250.h
+..\..\output\mpu9250.o: ..\..\User\mathx\mathx.h
 ..\..\output\mpu9250.o: ..\..\Libraries\CMSIS\Include\arm_math.h
 ..\..\output\mpu9250.o: ..\..\Libraries\CMSIS\Include\core_cm4.h
 ..\..\output\mpu9250.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 ..\..\output\mpu9250.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-..\..\output\mpu9250.o: ..\..\User\filter\filter.h
-..\..\output\mpu9250.o: ..\..\User\mathx\mathx.h
 ..\..\output\mpu9250.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\..\output\mpu9250.o: ..\..\User\ir\ir.h
+..\..\output\mpu9250.o: ..\..\User\mpu9250\mpu9250.h
+..\..\output\mpu9250.o: ..\..\User\filter\filter.h

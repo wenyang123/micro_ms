@@ -35,3 +35,9 @@
 ..\..\output\pid.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dac.h
 ..\..\output\pid.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h
 ..\..\output\pid.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h
+..\..\output\pid.o: ..\..\User\mathx\mathx.h
+..\..\output\pid.o: ..\..\Libraries\CMSIS\Include\arm_math.h
+..\..\output\pid.o: ..\..\Libraries\CMSIS\Include\core_cm4.h
+..\..\output\pid.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\..\output\pid.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\..\output\pid.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

@@ -38,18 +38,18 @@
 ..\..\output\main.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\..\output\main.o: ..\..\User\encode\encode.h
 ..\..\output\main.o: ..\..\User\led\led.h
+..\..\output\main.o: ..\..\User\mathx\mathx.h
+..\..\output\main.o: ..\..\Libraries\CMSIS\Include\arm_math.h
+..\..\output\main.o: ..\..\Libraries\CMSIS\Include\core_cm4.h
+..\..\output\main.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\..\output\main.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\..\output\main.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\..\output\main.o: ..\..\User\delay\delay.h
 ..\..\output\main.o: ..\..\User\sysc\sysc.h
 ..\..\output\main.o: ..\..\User\ir\ir.h
 ..\..\output\main.o: ..\..\User\mpu9250\mpu9250.h
 ..\..\output\main.o: ..\..\User\sysc\sysc.h
-..\..\output\main.o: ..\..\Libraries\CMSIS\Include\arm_math.h
-..\..\output\main.o: ..\..\Libraries\CMSIS\Include\core_cm4.h
-..\..\output\main.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-..\..\output\main.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 ..\..\output\main.o: ..\..\User\filter\filter.h
-..\..\output\main.o: ..\..\User\mathx\mathx.h
-..\..\output\main.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\..\output\main.o: ..\..\User\motor\motor.h
 ..\..\output\main.o: ..\..\User\buzzer\buzzer.h
 ..\..\output\main.o: ..\..\User\driver\driver.h

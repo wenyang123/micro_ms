@@ -39,3 +39,4 @@
 ..\..\output\mathx.o: ..\..\Libraries\CMSIS\Include\core_cm4.h
 ..\..\output\mathx.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 ..\..\output\mathx.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\..\output\mathx.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

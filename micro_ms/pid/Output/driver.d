@@ -42,14 +42,14 @@
 ..\..\output\driver.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\..\output\driver.o: ..\..\User\encode\encode.h
 ..\..\output\driver.o: ..\..\User\uart\uart.h
-..\..\output\driver.o: ..\..\User\pid\pid.h
-..\..\output\driver.o: ..\..\User\mpu9250\mpu9250.h
-..\..\output\driver.o: ..\..\User\sysc\sysc.h
-..\..\output\driver.o: ..\..\User\mpu9250\mpu9250.h
+..\..\output\driver.o: ..\..\User\mathx\mathx.h
 ..\..\output\driver.o: ..\..\Libraries\CMSIS\Include\arm_math.h
 ..\..\output\driver.o: ..\..\Libraries\CMSIS\Include\core_cm4.h
 ..\..\output\driver.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 ..\..\output\driver.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-..\..\output\driver.o: ..\..\User\filter\filter.h
-..\..\output\driver.o: ..\..\User\mathx\mathx.h
 ..\..\output\driver.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\..\output\driver.o: ..\..\User\pid\pid.h
+..\..\output\driver.o: ..\..\User\mpu9250\mpu9250.h
+..\..\output\driver.o: ..\..\User\sysc\sysc.h
+..\..\output\driver.o: ..\..\User\mpu9250\mpu9250.h
+..\..\output\driver.o: ..\..\User\filter\filter.h

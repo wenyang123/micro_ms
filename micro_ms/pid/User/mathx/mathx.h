@@ -3,6 +3,7 @@
 
 #include "stm32f4xx.h"
 #include "arm_math.h"
+#include "stdlib.h"
 
 #define dsp_sin                      arm_sin_f32
 #define dsp_cos                      arm_cos_f32

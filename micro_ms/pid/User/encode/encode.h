@@ -4,11 +4,16 @@
 #include "stm32f4xx.h"
 #include "uart.h"
 #include "led.h"
+#include "mathx.h"
 
-extern int32_t encode_1_velocity, encode_2_velocity;
+extern int32_t encode_1_velocity_plus, encode_2_velocity_plus;
+extern float encode_1_velocity_cm, encode_2_velocity_cm;
 extern int32_t encode_1_pulse_total, encode_2_pulse_total;
 extern int32_t encode_1_pulse_new, encode_2_pulse_new;
 extern int32_t encode_1_pulse_old, encode_2_pulse_old;
+extern float encode_velocity;
+
+
 
 #define encode_gpio_rcc_cmd							RCC_AHB1PeriphClockCmd
 #define encode_clk_rcc_cmd							RCC_APB1PeriphClockCmd
@@ -51,7 +56,7 @@ extern int32_t encode_1_pulse_old, encode_2_pulse_old;
 #define encode_period										0xFFFF
 #define encode_filter									  6
 
-
+#define encode_velocity_ratio						9.0188
 
 
 static void Encode_GPIO_Init(void);

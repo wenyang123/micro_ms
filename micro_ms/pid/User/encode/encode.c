@@ -1,9 +1,11 @@
 #include "encode.h"
 
-int32_t encode_1_velocity=0, encode_2_velocity=0;
+int32_t encode_1_velocity_plus=0, encode_2_velocity_plus=0;
+float encode_1_velocity_cm=0, encode_2_velocity_cm=0;
 int32_t encode_1_pulse_total=0, encode_2_pulse_total=0;
 int32_t encode_1_pulse_new=0, encode_2_pulse_new=0;
 int32_t encode_1_pulse_old=0, encode_2_pulse_old=0;
+float encode_velocity=0;
 
 
 static void Encode_GPIO_Init(void)
@@ -76,23 +78,32 @@ void Encode_Init(void)
 void Encode_Velocity_Get(void)
 {
 	encode_1_pulse_new = (int32_t)TIM_GetCounter(encode_1_num);
-	encode_1_velocity = encode_1_pulse_new - encode_1_pulse_old;
+	encode_1_velocity_plus = encode_1_pulse_new - encode_1_pulse_old;
 	encode_1_pulse_old = encode_1_pulse_new;
-	if(encode_1_velocity > 32767)
-		encode_1_velocity -= 65536;
-	else if(encode_1_velocity < -32767)
-		encode_1_velocity += 65536;
-	encode_1_pulse_total += encode_1_velocity;
+	if(encode_1_velocity_plus > 32767)
+		encode_1_velocity_plus -= 65536;
+	else if(encode_1_velocity_plus < -32767)
+		encode_1_velocity_plus += 65536;
+
+	encode_1_velocity_cm = - encode_velocity_ratio * encode_1_velocity_plus;
+	encode_1_pulse_total -= encode_1_velocity_plus;
+	if(abs(encode_1_pulse_total) > 400000000)
+		encode_1_pulse_total = 0;
 	
 	encode_2_pulse_new = (int32_t)TIM_GetCounter(encode_2_num);
-	encode_2_velocity = encode_2_pulse_new - encode_2_pulse_old;
+	encode_2_velocity_plus = encode_2_pulse_new - encode_2_pulse_old;
 	encode_2_pulse_old = encode_2_pulse_new;
-	if(encode_2_velocity > 32767)
-		encode_2_velocity -= 65536;
-	else if(encode_2_velocity < -32767)
-		encode_2_velocity += 65536;
-	encode_2_pulse_total += encode_2_velocity;
+	if(encode_2_velocity_plus > 32767)
+		encode_2_velocity_plus -= 65536;
+	else if(encode_2_velocity_plus < -32767)
+		encode_2_velocity_plus += 65536;
 	
+	encode_2_velocity_cm =  encode_velocity_ratio * encode_2_velocity_plus;
+	encode_2_pulse_total += encode_2_velocity_plus;
+	if(abs(encode_2_pulse_total) > 400000000)
+		encode_2_pulse_total = 0;
+	
+	encode_velocity = (encode_1_velocity_cm + encode_2_velocity_cm) / 2.0f;
 }
 
 void Ready_Start(void)

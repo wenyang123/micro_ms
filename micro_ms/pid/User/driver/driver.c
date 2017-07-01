@@ -3,15 +3,17 @@
 uint32_t pid_time=0;
 int16_t Motor[4];
 float Thro=100;
+float beeline_speed_desired=0;
+float beeline_speed_thro=0;
 
 void Ready_Start_Mode(void)
 {
 	Motor_Pwm_Flash(0,0,0,0);
-	while(encode_1_pulse_total/4 < 500)
-		Encode_Velocity_Get();
+	while(encode_1_pulse_total/4 > -500)
+		delay_ms(1);
 	led_s1_on;
 	while(encode_2_pulse_total/4 < 500)
-		Encode_Velocity_Get();
+		delay_ms(1);
 	led_s2_on;
 	while(ir_adc_1_get[0] < ir_start_value)
 	{
@@ -39,7 +41,12 @@ void Modo_DataUp(void)
 
 	PID_Angle_UpData(mpu9250.yaw, 0, dt);
 	PID_Rage_DataUp(mpu9250.gyroData[2], YawRateDesired, dt);
+	PID_Beeline_Speed_DataUp(encode_velocity, beeline_speed_desired, dt);
 	
+	beeline_speed_thro = (float)motor_pwm_max_ratio * beeline_speed_desired + BeelineSpeed;
+	Thro = beeline_speed_thro;
+	
+//	Thro = 100;
 	if(Thro - Yaw > 0)
 	{
 		Motor[0] = (int16_t)(Thro - Yaw );   

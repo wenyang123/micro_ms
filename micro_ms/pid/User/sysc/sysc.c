@@ -4,10 +4,11 @@ uint16_t loop_cnt=0, loop_cnt_cout=0;
 u32 dt_flag=0;
 u32 dt_t=0;
 u32 mode_dt=0;
-u16 ir_adc_1a_value_sysc_get=0,ir_adc_1b_value_sysc_get=0,ir_adc_1c_value_sysc_get=0;
-u16 ir_adc_2a_value_sysc_get=0,ir_adc_2b_value_sysc_get=0,ir_adc_2c_value_sysc_get=0;
+//u16 ir_adc_1a_value_sysc_get=0,ir_adc_1b_value_sysc_get=0,ir_adc_1c_value_sysc_get=0;
+//u16 ir_adc_2a_value_sysc_get=0,ir_adc_2b_value_sysc_get=0,ir_adc_2c_value_sysc_get=0;
 uint16_t loop_rc=0;
 uint16_t loop_rc_times=0;
+uint8_t init_finish=0;
 
 void SYS_Time(void)
 {
@@ -59,10 +60,14 @@ void RC_TIME_IRQnHandler(void)
 	if (TIM_GetITStatus(rc_time_num, TIM_IT_Update) != RESET)
   {	 
 	  TIM_ClearITPendingBit(rc_time_num, TIM_FLAG_Update);
+		Encode_Velocity_Get();
 //		Encode_Velocity_Get();
 //		IR_ADC_Dataup();
-		loop_rc = 1;
-		loop_rc_times ++;
+		if(init_finish == 1)
+		{
+			loop_rc = 1;
+			loop_rc_times ++;
+		}
 
   }
 }

@@ -2,14 +2,16 @@
 
 PID_Typedef yaw_angle_pid;    //yaw角度PID 
 PID_Typedef yaw_rate_pid;     //yaw角速率PID
+PID_Typedef beeline_speed_pid;		 //直线速度PID
 
 float PID_DataUp(PID_Typedef *PID, float Desired, float Measured, float Dt)
 {
     float output;
 	  PID->Desired = Desired;
     PID->Error = PID->Desired - Measured;
-
-    PID->Integ += PID->Error * Dt;
+		
+	  if( fabs(PID->Error) < Desired/2)
+			PID->Integ += PID->Error * Dt;
     if(PID->Integ > PID->iLimit)
     {
         PID->Integ = PID->iLimit;
@@ -50,6 +52,8 @@ void PID_Parameter_Init(void)
 {
 	PID_Parameter_Config(&yaw_angle_pid,0,yaw_angle_PID_P,yaw_angle_PID_I,yaw_angle_PID_D,yaw_angle_PID_iLimit);
 	PID_Parameter_Config(&yaw_rate_pid,0,yaw_rate_PID_P,yaw_rate_PID_I,yaw_rate_PID_D,yaw_rate_PID_iLimit);
+  PID_Parameter_Config(&beeline_speed_pid,0,beeline_speed_PID_P,beeline_speed_PID_I,beeline_speed_PID_D,beeline_speed_PID_iLimit);
+
 }
 
 void PID_Set_Desired(PID_Typedef *PID, float desired)
@@ -81,6 +85,14 @@ void PID_Rage_DataUp(float yawRateActual, float yawRateDesired, float Dt)
 	Yaw=yawOutput;
 }
 
+float BeelineSpeedOutput;
+float BeelineSpeed;
+
+void PID_Beeline_Speed_DataUp(float BeelineSpeedActual, float BeelineSpeedDesired, float Dt)
+{
+	BeelineSpeedOutput = PID_DataUp(&beeline_speed_pid, BeelineSpeedDesired, BeelineSpeedActual, Dt);
+	BeelineSpeed = BeelineSpeedOutput;
+}
 
 
 

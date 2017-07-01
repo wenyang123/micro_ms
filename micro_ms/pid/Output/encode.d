@@ -38,3 +38,9 @@
 ..\..\output\encode.o: ..\..\User\uart\uart.h
 ..\..\output\encode.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\..\output\encode.o: ..\..\User\led\led.h
+..\..\output\encode.o: ..\..\User\mathx\mathx.h
+..\..\output\encode.o: ..\..\Libraries\CMSIS\Include\arm_math.h
+..\..\output\encode.o: ..\..\Libraries\CMSIS\Include\core_cm4.h
+..\..\output\encode.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+..\..\output\encode.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\..\output\encode.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

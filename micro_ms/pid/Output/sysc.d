@@ -39,14 +39,14 @@
 ..\..\output\sysc.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\..\output\sysc.o: ..\..\User\encode\encode.h
 ..\..\output\sysc.o: ..\..\User\led\led.h
-..\..\output\sysc.o: ..\..\User\ir\ir.h
-..\..\output\sysc.o: ..\..\User\mpu9250\mpu9250.h
-..\..\output\sysc.o: ..\..\User\delay\delay.h
-..\..\output\sysc.o: ..\..\User\sysc\sysc.h
+..\..\output\sysc.o: ..\..\User\mathx\mathx.h
 ..\..\output\sysc.o: ..\..\Libraries\CMSIS\Include\arm_math.h
 ..\..\output\sysc.o: ..\..\Libraries\CMSIS\Include\core_cm4.h
 ..\..\output\sysc.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 ..\..\output\sysc.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-..\..\output\sysc.o: ..\..\User\filter\filter.h
-..\..\output\sysc.o: ..\..\User\mathx\mathx.h
 ..\..\output\sysc.o: D:\Program Files (x86)\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\..\output\sysc.o: ..\..\User\ir\ir.h
+..\..\output\sysc.o: ..\..\User\mpu9250\mpu9250.h
+..\..\output\sysc.o: ..\..\User\delay\delay.h
+..\..\output\sysc.o: ..\..\User\sysc\sysc.h
+..\..\output\sysc.o: ..\..\User\filter\filter.h

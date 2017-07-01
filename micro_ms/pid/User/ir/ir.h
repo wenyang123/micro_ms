@@ -3,7 +3,13 @@
 #include "stm32f4xx.h"
 #include "stdio.h"
 
-
+typedef struct
+{
+	uint16_t ir_adc_value_sys_get;
+	int16_t ir_adc_value_sysc_get_dt;
+	uint16_t ir_adc_value_get;
+	
+}IR_Data_X;
 
 #define ir_adc_config_times								1000
 #define ir_adc_1_buffer										150
@@ -112,9 +118,10 @@
 
 #define ir_value_lr												250   //250
 
-#define ir_a_start												0
-#define ir_b_start												2
-#define ir_c_start												1
+#define ir_a_start												1
+#define ir_b_start												3
+#define ir_c_start												2
+#define ir_end												    4
 
 
 

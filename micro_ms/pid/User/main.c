@@ -22,7 +22,11 @@ extern float imu_dt;
 uint16_t  rc_timer_counter=0;
 uint8_t rc_timer_state=0;
 uint8_t ir_mode_times=0;
+uint32_t  aa=0;
 
+
+IR_Data_X ir_data_1a, ir_data_1b, ir_data_1c;
+IR_Data_X ir_data_2a, ir_data_2b, ir_data_2c;
 int main(void)
 {
 	delay_ms(50);
@@ -43,13 +47,14 @@ int main(void)
 	led_f_on;
 //	delay_ms(2000);
 	led_f_off; led_l_on;
+	encode_1_pulse_total = 0; 
+	encode_2_pulse_total = 0;
+	beeline_speed_desired = beeline_speed_init;
+	init_finish = 1;
 	//Buzzer_So ud(5);
 	//Ready_Start_Mode();
   while(1)
 	{ 
-			IR_ADC_Dataup();
-		  IMU_DataUp();
-  		Modo_DataUp();
 		if(loop_rc == 1)
 		{
 			loop_rc = 0;
@@ -57,14 +62,13 @@ int main(void)
 			switch(rc_timer_state)
 			{
 				case waite:
-					Encode_Velocity_Get();
 					IR_ADC_Dataup();
 					switch(ir_mode_times)
 					{
 						case ir_a_start: 
+							ir_data_1a.ir_adc_value_sys_get = ir_adc_1a_value_new;
+        			ir_data_2a.ir_adc_value_sys_get = ir_adc_2a_value_new;
 							ir_1_on;ir_2_off;ir_3_off;
-						  ir_adc_1a_value_sysc_get = ir_adc_1a_value_new;
-        			ir_adc_2a_value_sysc_get = ir_adc_2a_value_new;
 							break;
 //						case ir_b_start:
 //							ir_1_off;ir_2_on;ir_3_off;
@@ -72,12 +76,40 @@ int main(void)
 //        			ir_adc_2b_value_sysc_get = ir_adc_2b_value_new;
 //							break;
 						case ir_c_start:
+							ir_data_1c.ir_adc_value_sys_get = ir_adc_1a_value_new;
+        			ir_data_2c.ir_adc_value_sys_get = ir_adc_2a_value_new;
 							ir_1_off;ir_2_off;ir_3_on;
-						  ir_adc_1c_value_sysc_get = ir_adc_1c_value_new;
-        			ir_adc_2c_value_sysc_get = ir_adc_2c_value_new;
+						
+							ir_data_1a.ir_adc_value_sysc_get_dt = ir_adc_1a_value_new - ir_data_1a.ir_adc_value_sys_get;
+        			ir_data_2a.ir_adc_value_sysc_get_dt = ir_adc_2a_value_new - ir_data_2a.ir_adc_value_sys_get;
+						  if(ir_data_1a.ir_adc_value_sysc_get_dt <= 0 )
+								ir_data_1a.ir_adc_value_sysc_get_dt=0;
+							if(ir_data_2a.ir_adc_value_sysc_get_dt <= 0 )
+								ir_data_2a.ir_adc_value_sysc_get_dt=0;
+							
+							ir_data_1a.ir_adc_value_get = ir_data_1a.ir_adc_value_sysc_get_dt;
+							ir_data_2a.ir_adc_value_get = ir_data_2a.ir_adc_value_sysc_get_dt;
 							break;
+							
+						case ir_b_start:
+              ir_1_off;ir_2_off;ir_3_off;
+
+							ir_data_1c.ir_adc_value_sysc_get_dt = ir_adc_1c_value_new - ir_data_1c.ir_adc_value_sys_get;
+        			ir_data_2c.ir_adc_value_sysc_get_dt = ir_adc_2c_value_new - ir_data_2c.ir_adc_value_sys_get;
+						  if(ir_data_1c.ir_adc_value_sysc_get_dt <= 0 )
+								ir_data_1c.ir_adc_value_sysc_get_dt=0;
+							if(ir_data_2c.ir_adc_value_sysc_get_dt <= 0 )
+								ir_data_2c.ir_adc_value_sysc_get_dt=0;
+							
+							ir_data_1c.ir_adc_value_get = ir_data_1c.ir_adc_value_sysc_get_dt;
+							ir_data_2c.ir_adc_value_get = ir_data_2c.ir_adc_value_sysc_get_dt;
+						  
+						  ir_data_1c.ir_adc_value_get = ir_adc_1c_value_new;
+        			ir_data_2c.ir_adc_value_get = ir_adc_2c_value_new;
+						
 						default:
 							ir_1_off;ir_2_off;ir_3_off;
+
 					}
 					if(ir_mode_times == 6) ir_mode_times=0;
 					if((rc_timer_counter%5) == 0) rc_timer_state=update_command;
@@ -98,16 +130,22 @@ int main(void)
 					loop_rc_times = 0;
 					IMU_DataUp();
 					Modo_DataUp();
-					if( (ir_adc_1a_value_sysc_get > ir_start_value_back) && (ir_adc_2a_value_sysc_get > ir_start_value_back) ) 
+				  delay_ms(1);
+				  //aa++;
+					//printf("err=%3.2f     v=%3.2f    to=%3.2f    %5d\n", beeline_speed_pid.Error, encode_velocity, BeelineSpeed, aa);
+//		      printf("ir_1a=%5d    ir_2b=%5d    ",ir_data_1a.ir_adc_value_get , ir_data_2a.ir_adc_value_get );
+//			    printf("ir_1c=%5d    ir_2c=%5d\n",ir_data_1c.ir_adc_value_get , ir_data_2c.ir_adc_value_get );
+	
+				if( (ir_data_1a.ir_adc_value_get  > ir_start_value_back) && (ir_data_2a.ir_adc_value_get  > ir_start_value_back) ) 
 					{
 					  rc_timer_state = stop_command;
 						break;
 				  }
-					if( ir_adc_1c_value_sysc_get > ir_value_lr) 
+					if( ir_data_1c.ir_adc_value_get  > ir_value_lr) 
 						led_s1_on;
 					else
 						led_s1_off;
-					if(ir_adc_2c_value_sysc_get > ir_value_lr)  
+					if(ir_data_2c.ir_adc_value_get  > ir_value_lr)  
 						led_s2_on;
 					else
 						led_s2_off;
@@ -120,6 +158,15 @@ int main(void)
 				
 				case stop_command:
 						led_f_on;
+				    ir_1_off;ir_2_off;ir_3_off;
+						beeline_speed_desired = 0;
+						while(encode_velocity > 0)
+						{
+							Modo_DataUp();
+							printf("err=%3.2f     v=%3.2f    to=%3.2f    %5d\n", beeline_speed_pid.Error, encode_velocity, BeelineSpeed, aa);
+						}
+						Motor_Pwm_Flash(0,0,0,0);
+						while(1);
 						Motor_Pwm_Flash(0,0,0,0);
 						delay_ms(1);
 						Motor_Pwm_Flash(0,450,0,450);

@@ -46,6 +46,8 @@
 
 #define motor_pwm_max      									  300
 
+#define motor_pwm_max_ratio										1.4		
+
 
 
 
